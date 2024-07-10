@@ -1,0 +1,1 @@
+export { productReducer } from './productSlice';

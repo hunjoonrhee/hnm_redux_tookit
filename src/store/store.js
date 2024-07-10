@@ -1,8 +1,9 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import { userReducer } from '../component/context/user/userSlice';
+import { userReducer, productReducer } from '../component/context';
 
 const rootReducer = combineReducers({
   user: userReducer,
+  product: productReducer,
 });
 
 export const setupStore = (preloadedState) => {

@@ -14,7 +14,7 @@ export const logInUserThunk = async ({ email, password }, { rejectWithValue }) =
 
   try {
     const res = await api.post('/user/login', loginData);
-    const user = await res.data;
+    const user = res.data;
     sessionStorage.setItem('token', res.data.token);
     return user;
   } catch (error) {
