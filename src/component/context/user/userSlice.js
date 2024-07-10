@@ -1,5 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { createANewUserThunk, logInUserThunk } from './userThunk';
+import { createANewUserThunk, logInUserThunk, logOutUserThunk } from './userThunk';
 import { toast } from 'react-toastify';
 
 const initialState = {
@@ -22,7 +22,13 @@ export const logInUser = createAsyncThunk('user/logInUser', logInUserThunk);
 const userSlice = createSlice({
   name: 'user',
   initialState,
-  reducers: {},
+  reducers: {
+    logOut(state) {
+      sessionStorage.removeItem('token');
+      toast.success('Good bye!');
+      state.user = null;
+    },
+  },
   extraReducers: (builder) => {
     builder
       .addCase(createANewUser.pending, (state) => {
@@ -33,10 +39,9 @@ const userSlice = createSlice({
         state.registerDone = true;
       })
       .addCase(createANewUser.rejected, (state, action) => {
-        console.log(action.payload);
         state.registerLoading = false;
         state.registerDone = false;
-        toast.error(action.payload);
+        toast.error(action.payload.message);
       })
       .addCase(logInUser.pending, (state) => {
         state.logInLoading = true;
@@ -45,13 +50,15 @@ const userSlice = createSlice({
         state.logInLoading = false;
         state.logInDone = true;
         state.user = action.payload.user;
+        toast.success('Welcome! Happy Shopping!');
       })
-      .addCase(logInUser.rejected, (state) => {
+      .addCase(logInUser.rejected, (state, action) => {
         state.logInLoading = false;
         state.logInDone = false;
+        toast.error(action.payload.message);
       });
   },
 });
 
-export const {} = userSlice.actions;
+export const { logOut } = userSlice.actions;
 export const userReducer = userSlice.reducer;

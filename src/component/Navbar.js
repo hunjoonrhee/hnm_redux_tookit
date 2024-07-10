@@ -4,6 +4,7 @@ import { faUser } from '@fortawesome/free-regular-svg-icons';
 import { faBars, faBox, faSearch, faShoppingBag } from '@fortawesome/free-solid-svg-icons';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
+import { logOut } from './context/user/userSlice';
 
 const Navbar = ({ user }) => {
   const dispatch = useDispatch();
@@ -23,7 +24,10 @@ const Navbar = ({ user }) => {
     }
   };
 
-  const logout = () => {};
+  const logout = () => {
+    console.log('ddd');
+    dispatch(logOut());
+  };
 
   return (
     <>

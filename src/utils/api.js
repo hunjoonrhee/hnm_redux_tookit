@@ -27,9 +27,14 @@ api.interceptors.response.use(
   (response) => {
     return response;
   },
-  function (error) {
-    error = error.response.data;
-    return Promise.reject(error);
+  (error) => {
+    if (error.response) {
+      // 서버 응답이 있는 경우
+      return Promise.reject(error.response.data);
+    } else {
+      // 서버 응답이 없는 경우 (네트워크 오류 등)
+      return Promise.reject(error);
+    }
   },
 );
 
