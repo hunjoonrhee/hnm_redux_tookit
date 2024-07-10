@@ -32,6 +32,7 @@ const RegisterPage = () => {
     setPasswordError('');
     setPolicyError(false);
     dispatch(createANewUser(formData));
+    navigate('/login');
   };
 
   const handleChange = (event) => {

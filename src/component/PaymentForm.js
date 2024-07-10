@@ -1,14 +1,10 @@
 import React from 'react';
 import { Col, Form, Row } from 'react-bootstrap';
-import Cards from 'react-credit-cards-2';
-import 'react-credit-cards-2/dist/es/styles-compiled.css';
 
 const PaymentForm = ({ handleInputFocus, cardValue, handlePaymentInfoChange }) => {
   return (
     <Row className="display-flex">
-      <Col md={6} xs={12}>
-        <Cards cvc={cardValue.cvc} expiry={cardValue.expiry} focused={cardValue.focus} name={cardValue.name} number={cardValue.number} />
-      </Col>
+      <Col md={6} xs={12}></Col>
       <Col md={6} xs={12}>
         <div className="form-area">
           <Form.Control

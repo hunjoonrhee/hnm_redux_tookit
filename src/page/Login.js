@@ -18,6 +18,7 @@ const Login = () => {
     dispatch(logInUser({ email, password }));
   };
 
+  console.log(user);
   // const handleGoogleLogin = async (googleData) => {
   //   dispatch(userActions.loginWithGoogle(googleData.credential));
   // };

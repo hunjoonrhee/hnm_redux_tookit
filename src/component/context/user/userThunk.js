@@ -29,7 +29,7 @@ export const logInUserThunk = async ({ email, password }, { rejectWithValue }) =
       return rejectWithValue(res.message);
     }
 
-    const user = await res.user.json();
+    const user = await res.data;
     return user;
   } catch (error) {
     return rejectWithValue(error);
