@@ -37,10 +37,7 @@ const OrderReceipt = ({ cartList, totalPrice }) => {
 
       <div>
         Possible payment methods will not be confirmed until you reach the payment stage.
-        <div>
-          Read about the 30-day return period, return fees, and additional shipping charges for undelivered items.
-          Returns and Refunds
-        </div>
+        <div>Read about the 30-day return period, return fees, and additional shipping charges for undelivered items. Returns and Refunds</div>
       </div>
     </div>
   );

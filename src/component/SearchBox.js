@@ -15,13 +15,7 @@ const SearchBox = ({ searchQuery, setSearchQuery, placeholder, field }) => {
   return (
     <div className="search-box">
       <FontAwesomeIcon icon={faSearch} />
-      <input
-        type="text"
-        placeholder={placeholder}
-        onKeyPress={onCheckEnter}
-        onChange={(event) => setKeyword(event.target.value)}
-        value={keyword}
-      />
+      <input type="text" placeholder={placeholder} onKeyPress={onCheckEnter} onChange={(event) => setKeyword(event.target.value)} value={keyword} />
     </div>
   );
 };

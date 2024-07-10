@@ -1,5 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
-import { createANewUserThunk } from './userThunk';
+import { createANewUserThunk, logInUserThunk } from './userThunk';
+import { toast } from 'react-toastify';
 
 const initialState = {
   user: null,
@@ -16,6 +17,7 @@ const initialState = {
 };
 
 export const createANewUser = createAsyncThunk('user/createANewUser', createANewUserThunk);
+export const logInUser = createAsyncThunk('user/logInUser', logInUserThunk);
 
 const userSlice = createSlice({
   name: 'user',
@@ -30,9 +32,23 @@ const userSlice = createSlice({
         state.registerLoading = false;
         state.registerDone = true;
       })
-      .addCase(createANewUser.rejected, (state) => {
+      .addCase(createANewUser.rejected, (state, action) => {
+        console.log(action.payload);
         state.registerLoading = false;
-        state.registerDone = true;
+        state.registerDone = false;
+        toast.error(action.payload);
+      })
+      .addCase(logInUser.pending, (state) => {
+        state.logInLoading = true;
+      })
+      .addCase(logInUser.fulfilled, (state, action) => {
+        state.logInLoading = false;
+        state.logInDone = true;
+        state.user = action.payload;
+      })
+      .addCase(logInUser.rejected, (state) => {
+        state.logInLoading = false;
+        state.logInDone = false;
       });
   },
 });

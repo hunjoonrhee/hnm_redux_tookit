@@ -4,19 +4,15 @@ import { faUser } from '@fortawesome/free-regular-svg-icons';
 import { faBars, faBox, faSearch, faShoppingBag } from '@fortawesome/free-solid-svg-icons';
 import { Link, useNavigate, useSearchParams } from 'react-router-dom';
 import { useDispatch, useSelector } from 'react-redux';
-import { userActions } from '../action/userAction';
-import { productActions } from '../action/productAction';
 
 const Navbar = ({ user }) => {
   const dispatch = useDispatch();
   const [query] = useSearchParams();
-  const { cartItemQty } = useSelector((state) => state.cart);
   const isMobile = window.navigator.userAgent.indexOf('Mobile') !== -1;
   const [showSearchBox, setShowSearchBox] = useState(false);
   const menuList = ['Women', 'Divided', 'Men', 'Baby', 'Kids', 'HOME', 'Sale'];
   let [width, setWidth] = useState(0);
   const navigate = useNavigate();
-
   const onCheckEnter = (event) => {
     if (event.key === 'Enter') {
       if (event.target.value === '') {
@@ -27,28 +23,7 @@ const Navbar = ({ user }) => {
     }
   };
 
-  const name = query.get('name');
-  useEffect(() => {
-    const category = {
-      name: query.get('name') || '',
-    };
-    dispatch(productActions.getProductList({ category }));
-  }, [name]);
-
-  const handleCategoryChange = (category) => {
-    navigate(`?category=${category}`);
-  };
-
-  useEffect(() => {
-    if (!query.get('name')) {
-      const category = { category: query.get('category') };
-      dispatch(productActions.getProductList({ category }));
-    }
-  }, [query]);
-
-  const logout = () => {
-    dispatch(userActions.logout());
-  };
+  const logout = () => {};
 
   return (
     <>
@@ -104,7 +79,7 @@ const Navbar = ({ user }) => {
             )}
             <div onClick={() => navigate('/cart')} className="nav-icon">
               <FontAwesomeIcon icon={faShoppingBag} />
-              {!isMobile && <span style={{ cursor: 'pointer' }}>{`My Cart(${cartItemQty || 0})`}</span>}
+              {!isMobile && <span style={{ cursor: 'pointer' }}>{`My Cart(0)`}</span>}
             </div>
             <div onClick={() => navigate('/account/purchase')} className="nav-icon">
               <FontAwesomeIcon icon={faBox} />

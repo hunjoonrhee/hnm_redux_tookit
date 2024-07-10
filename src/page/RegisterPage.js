@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import { Container, Form, Button, Alert } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import { useNavigate } from 'react-router';
-import { userActions } from '../action/userAction';
 import '../style/register.style.css';
+import { createANewUser } from '../component/context/user/userSlice';
 const RegisterPage = () => {
   const dispatch = useDispatch();
   const [formData, setFormData] = useState({
@@ -16,7 +16,7 @@ const RegisterPage = () => {
   const navigate = useNavigate();
   const [passwordError, setPasswordError] = useState('');
   const [policyError, setPolicyError] = useState(false);
-  const { error, loading } = useSelector((state) => state.user);
+  const { registerError, registerLoading } = useSelector((store) => store.user);
 
   const register = (event) => {
     event.preventDefault();
@@ -31,7 +31,7 @@ const RegisterPage = () => {
     }
     setPasswordError('');
     setPolicyError(false);
-    dispatch(userActions.registerUser({ name, email, password }, navigate));
+    dispatch(createANewUser(formData));
   };
 
   const handleChange = (event) => {
@@ -43,25 +43,19 @@ const RegisterPage = () => {
     }
   };
 
-  useEffect(() => {
-    return () => {
-      dispatch(userActions.deleteError());
-    };
-  }, []);
-
   return (
     <Container className="register-area">
-      {loading && (
+      {registerLoading && (
         <div>
           <Alert variant="danger" className="loading-message">
             loading...
           </Alert>
         </div>
       )}
-      {error && (
+      {registerError && (
         <div>
           <Alert variant="danger" className="error-message">
-            {error}
+            {registerError}
           </Alert>
         </div>
       )}
@@ -80,14 +74,7 @@ const RegisterPage = () => {
         </Form.Group>
         <Form.Group className="mb-3">
           <Form.Label>Confirm Password</Form.Label>
-          <Form.Control
-            type="password"
-            id="confirmPassword"
-            placeholder="Confirm Password"
-            onChange={handleChange}
-            required
-            isInvalid={passwordError}
-          />
+          <Form.Control type="password" id="confirmPassword" placeholder="Confirm Password" onChange={handleChange} required isInvalid={passwordError} />
           <Form.Control.Feedback type="invalid">{passwordError}</Form.Control.Feedback>
         </Form.Group>
         <Form.Group className="mb-3">

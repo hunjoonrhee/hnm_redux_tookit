@@ -38,12 +38,7 @@ const Sidebar = () => {
           <img width={250} src="/image/mayday_logo.png" alt="mayday_logo.png" />
           <Navbar.Brand href="#"></Navbar.Brand>
           <Navbar.Toggle aria-controls={`offcanvasNavbar-expand`} onClick={() => setShow(true)} />
-          <Navbar.Offcanvas
-            id={`offcanvasNavbar-expand`}
-            aria-labelledby={`offcanvasNavbarLabel-expand`}
-            placement="start"
-            className="sidebar"
-            show={show}>
+          <Navbar.Offcanvas id={`offcanvasNavbar-expand`} aria-labelledby={`offcanvasNavbarLabel-expand`} placement="start" className="sidebar" show={show}>
             <Offcanvas.Header closeButton></Offcanvas.Header>
             <Offcanvas.Body>{NavbarContent()}</Offcanvas.Body>
           </Navbar.Offcanvas>

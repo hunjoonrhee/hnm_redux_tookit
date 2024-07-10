@@ -1,6 +1,5 @@
 import React from 'react';
 import { Table, Badge } from 'react-bootstrap';
-import { badgeBg } from '../constants/order.constants';
 import { currencyFormat } from '../utils/number';
 const OrderTable = ({ header, data, openEditForm }) => {
   return (
