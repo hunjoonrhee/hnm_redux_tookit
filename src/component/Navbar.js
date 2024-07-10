@@ -1,58 +1,50 @@
-import React, { useEffect, useState } from "react";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faUser } from "@fortawesome/free-regular-svg-icons";
-import { faBars, faBox, faSearch, faShoppingBag } from "@fortawesome/free-solid-svg-icons";
-import { Link, useNavigate, useSearchParams } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { userActions } from "../action/userAction";
-import { productActions } from "../action/productAction";
+import React, { useEffect, useState } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser } from '@fortawesome/free-regular-svg-icons';
+import { faBars, faBox, faSearch, faShoppingBag } from '@fortawesome/free-solid-svg-icons';
+import { Link, useNavigate, useSearchParams } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { userActions } from '../action/userAction';
+import { productActions } from '../action/productAction';
 
 const Navbar = ({ user }) => {
   const dispatch = useDispatch();
   const [query] = useSearchParams();
   const { cartItemQty } = useSelector((state) => state.cart);
-  const isMobile = window.navigator.userAgent.indexOf("Mobile") !== -1;
+  const isMobile = window.navigator.userAgent.indexOf('Mobile') !== -1;
   const [showSearchBox, setShowSearchBox] = useState(false);
-  const menuList = [
-    "Women",
-    "Divided",
-    "Men",
-    "Baby",
-    "Kids",
-    "HOME",
-    "Sale",
-  ];
+  const menuList = ['Women', 'Divided', 'Men', 'Baby', 'Kids', 'HOME', 'Sale'];
   let [width, setWidth] = useState(0);
   const navigate = useNavigate();
 
   const onCheckEnter = (event) => {
-    if (event.key === "Enter") {
-      if (event.target.value === "") {
-        return navigate("/");
+    if (event.key === 'Enter') {
+      if (event.target.value === '') {
+        return navigate('/');
       }
       navigate(`?&name=${event.target.value}`); //쿼리파라미터
       // navigate(`/${category}`) //동적라우터
     }
   };
 
-  const name = query.get("name");
+  const name = query.get('name');
   useEffect(() => {
     const category = {
-      name: query.get("name") || "",
+      name: query.get('name') || '',
     };
     dispatch(productActions.getProductList({ category }));
   }, [name]);
 
   const handleCategoryChange = (category) => {
-    navigate(`?category=${category}`)
+    navigate(`?category=${category}`);
   };
 
-  useEffect(()=>{
-    if(!query.get("name")){    
-      const category = {category:query.get("category")}
-    dispatch(productActions.getProductList({ category }));
+  useEffect(() => {
+    if (!query.get('name')) {
+      const category = { category: query.get('category') };
+      dispatch(productActions.getProductList({ category }));
     }
-  },[query])
+  }, [query]);
 
   const logout = () => {
     dispatch(userActions.logout());
@@ -66,16 +58,9 @@ const Navbar = ({ user }) => {
             <div className="search display-space-between w-100">
               <div>
                 <FontAwesomeIcon className="search-icon" icon={faSearch} />
-                <input
-                  type="text"
-                  placeholder="Search Products"
-                  onKeyPress={onCheckEnter}
-                />
+                <input type="text" placeholder="Search Products" onKeyPress={onCheckEnter} />
               </div>
-              <button
-                className="closebtn"
-                onClick={() => setShowSearchBox(false)}
-              >
+              <button className="closebtn" onClick={() => setShowSearchBox(false)}>
                 &times;
               </button>
             </div>
@@ -91,7 +76,7 @@ const Navbar = ({ user }) => {
             ))}
           </div>
         </div>
-        {user && user.level === "admin" && (
+        {user && user.level === 'admin' && (
           <Link to="/admin/product?page=1" className="link-area">
             Admin page
           </Link>
@@ -101,42 +86,29 @@ const Navbar = ({ user }) => {
             <div className="burger-menu hide">
               <FontAwesomeIcon icon={faBars} onClick={() => setWidth(250)} />
             </div>
-            {user && (
-              <div className="welcome-message">
-                Welcome, {user.name}!
-              </div>
-            )}
+            {user && <div className="welcome-message">Welcome, {user.name}!</div>}
           </div>
           <div className="d-flex align-items-center ml-auto">
             {user ? (
               <>
                 <div onClick={logout} className="nav-icon">
                   <FontAwesomeIcon icon={faUser} />
-                  {!isMobile && (
-                    <span style={{ cursor: "pointer" }}>Logout</span>
-                  )}
+                  {!isMobile && <span style={{ cursor: 'pointer' }}>Logout</span>}
                 </div>
               </>
             ) : (
-              <div onClick={() => navigate("/login")} className="nav-icon">
+              <div onClick={() => navigate('/login')} className="nav-icon">
                 <FontAwesomeIcon icon={faUser} />
-                {!isMobile && <span style={{ cursor: "pointer" }}>Login</span>}
+                {!isMobile && <span style={{ cursor: 'pointer' }}>Login</span>}
               </div>
             )}
-            <div onClick={() => navigate("/cart")} className="nav-icon">
+            <div onClick={() => navigate('/cart')} className="nav-icon">
               <FontAwesomeIcon icon={faShoppingBag} />
-              {!isMobile && (
-                <span style={{ cursor: "pointer" }}>{`My Cart(${
-                  cartItemQty || 0
-                })`}</span>
-              )}
+              {!isMobile && <span style={{ cursor: 'pointer' }}>{`My Cart(${cartItemQty || 0})`}</span>}
             </div>
-            <div
-              onClick={() => navigate("/account/purchase")}
-              className="nav-icon"
-            >
+            <div onClick={() => navigate('/account/purchase')} className="nav-icon">
               <FontAwesomeIcon icon={faBox} />
-              {!isMobile && <span style={{ cursor: "pointer" }}>My Order</span>}
+              {!isMobile && <span style={{ cursor: 'pointer' }}>My Order</span>}
             </div>
             {isMobile && (
               <div className="nav-icon" onClick={() => setShowSearchBox(true)}>
@@ -162,11 +134,7 @@ const Navbar = ({ user }) => {
           {!isMobile && (
             <div className="search-box landing-search-box ">
               <FontAwesomeIcon icon={faSearch} />
-              <input
-                type="text"
-                placeholder="search"
-                onKeyPress={onCheckEnter}
-              />
+              <input type="text" placeholder="search" onKeyPress={onCheckEnter} />
             </div>
           )}
         </div>

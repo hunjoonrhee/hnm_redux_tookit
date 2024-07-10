@@ -1,7 +1,7 @@
-import React from "react";
-import { Table, Badge } from "react-bootstrap";
-import { badgeBg } from "../constants/order.constants";
-import { currencyFormat } from "../utils/number";
+import React from 'react';
+import { Table, Badge } from 'react-bootstrap';
+import { badgeBg } from '../constants/order.constants';
+import { currencyFormat } from '../utils/number';
 const OrderTable = ({ header, data, openEditForm }) => {
   return (
     <div className="overflow-x">
@@ -30,7 +30,7 @@ const OrderTable = ({ header, data, openEditForm }) => {
                   <th></th>
                 )}
 
-                <th>{item.shipTo.address + " " + item.shipTo.city}</th>
+                <th>{item.shipTo.address + ' ' + item.shipTo.city}</th>
 
                 <th>{currencyFormat(item.totalPrice)}</th>
                 <th>

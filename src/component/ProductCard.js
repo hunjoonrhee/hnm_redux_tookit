@@ -1,7 +1,7 @@
-import React from "react";
-import { useNavigate } from "react-router-dom";
-import { currencyFormat } from "../utils/number";
-import "../../src/App.css";
+import React from 'react';
+import { useNavigate } from 'react-router-dom';
+import { currencyFormat } from '../utils/number';
+import '../../src/App.css';
 
 const ProductCard = ({ product }) => {
   const navigate = useNavigate();
@@ -19,4 +19,3 @@ const ProductCard = ({ product }) => {
 };
 
 export default ProductCard;
-

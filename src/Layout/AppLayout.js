@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from "react";
-import { useLocation } from "react-router";
-import { Col, Row } from "react-bootstrap";
-import Sidebar from "../component/Sidebar";
-import Navbar from "../component/Navbar";
-import ToastMessage from "../component/ToastMessage";
-import { useDispatch, useSelector } from "react-redux";
-import { userActions } from "../action/userAction";
-import { cartActions } from "../action/cartAction";
+import React, { useEffect, useState } from 'react';
+import { useLocation } from 'react-router';
+import { Col, Row } from 'react-bootstrap';
+import Sidebar from '../component/Sidebar';
+import Navbar from '../component/Navbar';
+import ToastMessage from '../component/ToastMessage';
+import { useDispatch, useSelector } from 'react-redux';
+import { userActions } from '../action/userAction';
+import { cartActions } from '../action/cartAction';
 // import SummerSaleModal from "../component/SummerSaleModal";
 import { Button } from 'react-bootstrap';
 import DiscountModal from '../component/DiscountModal';
@@ -39,7 +39,7 @@ const AppLayout = ({ children }) => {
             </button>
             <DiscountModal show={showModal} handleClose={handleClose} />
         </div> */}
-      {location.pathname.includes("admin") ? (
+      {location.pathname.includes('admin') ? (
         <Row className="vh-100">
           <Col xs={12} md={3} className="sidebar mobile-sidebar">
             <Sidebar />

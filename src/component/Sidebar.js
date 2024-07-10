@@ -1,6 +1,6 @@
-import React, { useState } from "react";
-import { Offcanvas, Navbar, Container } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
+import React, { useState } from 'react';
+import { Offcanvas, Navbar, Container } from 'react-bootstrap';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Sidebar = () => {
   const navigate = useNavigate();
@@ -19,16 +19,10 @@ const Sidebar = () => {
         </Link>
         <div className="sidebar-item">Admin Account</div>
         <ul className="sidebar-area">
-          <li
-            className="sidebar-item"
-            onClick={() => handleSelectMenu("/admin/product?page=1")}
-          >
+          <li className="sidebar-item" onClick={() => handleSelectMenu('/admin/product?page=1')}>
             product
           </li>
-          <li
-            className="sidebar-item"
-            onClick={() => handleSelectMenu("/admin/order?page=1")}
-          >
+          <li className="sidebar-item" onClick={() => handleSelectMenu('/admin/order?page=1')}>
             order
           </li>
         </ul>
@@ -43,17 +37,13 @@ const Sidebar = () => {
         <Container fluid>
           <img width={250} src="/image/mayday_logo.png" alt="mayday_logo.png" />
           <Navbar.Brand href="#"></Navbar.Brand>
-          <Navbar.Toggle
-            aria-controls={`offcanvasNavbar-expand`}
-            onClick={() => setShow(true)}
-          />
+          <Navbar.Toggle aria-controls={`offcanvasNavbar-expand`} onClick={() => setShow(true)} />
           <Navbar.Offcanvas
             id={`offcanvasNavbar-expand`}
             aria-labelledby={`offcanvasNavbarLabel-expand`}
             placement="start"
             className="sidebar"
-            show={show}
-          >
+            show={show}>
             <Offcanvas.Header closeButton></Offcanvas.Header>
             <Offcanvas.Body>{NavbarContent()}</Offcanvas.Body>
           </Navbar.Offcanvas>

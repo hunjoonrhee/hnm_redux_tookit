@@ -1,23 +1,23 @@
-import React, { useEffect, useState } from "react";
-import { useNavigate, useParams } from "react-router-dom";
-import { Container, Row, Col, Button, Dropdown } from "react-bootstrap";
-import { useDispatch, useSelector } from "react-redux";
-import { productActions } from "../action/productAction";
-import { ColorRing } from "react-loader-spinner";
-import { cartActions } from "../action/cartAction";
-import { commonUiActions } from "../action/commonUiAction";
-import { currencyFormat } from "../utils/number";
-import "../style/productDetail.style.css";
-import ClipLoader from "react-spinners/ClipLoader";
+import React, { useEffect, useState } from 'react';
+import { useNavigate, useParams } from 'react-router-dom';
+import { Container, Row, Col, Button, Dropdown } from 'react-bootstrap';
+import { useDispatch, useSelector } from 'react-redux';
+import { productActions } from '../action/productAction';
+import { ColorRing } from 'react-loader-spinner';
+import { cartActions } from '../action/cartAction';
+import { commonUiActions } from '../action/commonUiAction';
+import { currencyFormat } from '../utils/number';
+import '../style/productDetail.style.css';
+import ClipLoader from 'react-spinners/ClipLoader';
 
 const ProductDetail = () => {
   const dispatch = useDispatch();
 
-  const { user } = useSelector((state)=> state.user)
+  const { user } = useSelector((state) => state.user);
   const selectedProduct = useSelector((state) => state.product.selectedProduct);
   const loading = useSelector((state) => state.product.loading);
   const error = useSelector((state) => state.product.error);
-  const [size, setSize] = useState("");
+  const [size, setSize] = useState('');
   const { id } = useParams();
   const [sizeError, setSizeError] = useState(false);
 
@@ -28,17 +28,19 @@ const ProductDetail = () => {
   };
 
   const addItemToCart = () => {
-    if(size ===""){
-      setSizeError(true)
+    if (size === '') {
+      setSizeError(true);
       return;
     }
-    if(!user) { navigate('/login') }
-    dispatch(cartActions.addToCart({id, size}))
-    dispatch(cartActions.getCartQty())
+    if (!user) {
+      navigate('/login');
+    }
+    dispatch(cartActions.addToCart({ id, size }));
+    dispatch(cartActions.getCartQty());
   };
-  const selectSize = (value) => {;
+  const selectSize = (value) => {
     setSize(value);
-    if(sizeError) setSizeError(false);
+    if (sizeError) setSizeError(false);
   };
   useEffect(() => {
     dispatch(productActions.getProductDetail(id));
@@ -47,7 +49,7 @@ const ProductDetail = () => {
   if (loading || !selectedProduct) {
     return (
       <div className="loading">
-        {" "}
+        {' '}
         <ClipLoader color="#FB6D33" loading={loading} size={100} />
       </div>
     );
@@ -59,15 +61,11 @@ const ProductDetail = () => {
             <img src={selectedProduct.image} className="w-100" alt="image" />
           </Col>
           <Col className="product-info-area" sm={6}>
-            <div className="detail-product-description">
-              {selectedProduct.description}
-            </div>
+            <div className="detail-product-description">{selectedProduct.description}</div>
             <br />
             <div className="detail-product-name">
               {selectedProduct.name}
-              <h className="detail-product-new">
-                {selectedProduct.isNew == true ? "NEW" : ""}
-              </h>
+              <h className="detail-product-new">{selectedProduct.isNew == true ? 'NEW' : ''}</h>
             </div>
             <br />
             <div className="detail-product-price">
@@ -80,15 +78,13 @@ const ProductDetail = () => {
               className="drop-down size-drop-down"
               title={size}
               align="start"
-              onSelect={(eventKey) => selectSize(eventKey)}
-            >
+              onSelect={(eventKey) => selectSize(eventKey)}>
               <Dropdown.Toggle
                 className="size-drop-down"
-                variant={sizeError ? "outline-danger" : "outline-dark"}
+                variant={sizeError ? 'outline-danger' : 'outline-dark'}
                 id="dropdown-basic"
-                align="start"
-              >
-                {size ? size.toUpperCase() : "Select Size"}
+                align="start">
+                {size ? size.toUpperCase() : 'Select Size'}
               </Dropdown.Toggle>
 
               {/* <Dropdown.Menu className="size-drop-down">
@@ -105,30 +101,29 @@ const ProductDetail = () => {
                   )
                 )}
             </Dropdown.Menu> */}
-            <Dropdown.Menu className="size-drop-down">
-      {Object.keys(selectedProduct.stock).map((item) =>
-        selectedProduct.stock[item] > 0 ? (
-          <Dropdown.Item key={item} eventKey={item}>
-            {item.toUpperCase()}
-            {selectedProduct.stock[item] <= 5 && (
-              <span className="low-stock">
-                {" "} - {selectedProduct.stock[item]} item(s) (Almost Out of Stock)
-              </span>
-            )}
-          </Dropdown.Item>
-        ) : (
-          <Dropdown.Item key={item} eventKey={item} disabled>
-            {item.toUpperCase()} - Out of Stock
-          </Dropdown.Item>
-        )
-      )}
-    </Dropdown.Menu>
+              <Dropdown.Menu className="size-drop-down">
+                {Object.keys(selectedProduct.stock).map((item) =>
+                  selectedProduct.stock[item] > 0 ? (
+                    <Dropdown.Item key={item} eventKey={item}>
+                      {item.toUpperCase()}
+                      {selectedProduct.stock[item] <= 5 && (
+                        <span className="low-stock">
+                          {' '}
+                          - {selectedProduct.stock[item]} item(s) (Almost Out of Stock)
+                        </span>
+                      )}
+                    </Dropdown.Item>
+                  ) : (
+                    <Dropdown.Item key={item} eventKey={item} disabled>
+                      {item.toUpperCase()} - Out of Stock
+                    </Dropdown.Item>
+                  ),
+                )}
+              </Dropdown.Menu>
             </Dropdown>
-            <div className="warning-message">
-              {sizeError && "Please select a size."}
-            </div>
+            <div className="warning-message">{sizeError && 'Please select a size.'}</div>
             <button className="add-button" onClick={addItemToCart}>
-            Add
+              Add
             </button>
           </Col>
         </Row>

@@ -13,21 +13,19 @@ const CLOUDINARY_CLOUD_NAME = process.env.REACT_APP_CLOUDINARY_CLOUD_NAME;
 const CLOUDINARY_PRESET = process.env.REACT_APP_CLOUDINARY_PRESET;
 
 const InitialFormData = {
-  name: "",
-  sku: "",
+  name: '',
+  sku: '',
   stock: {},
-  image: "",
-  description: "",
+  image: '',
+  description: '',
   category: [],
-  status: "active",
+  status: 'active',
   price: 0,
 };
 const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
   const selectedProduct = useSelector((state) => state.product.selectedProduct);
   const { error } = useSelector((state) => state.product);
-  const [formData, setFormData] = useState(
-    mode === "new" ? { ...InitialFormData } : selectedProduct
-  );
+  const [formData, setFormData] = useState(mode === 'new' ? { ...InitialFormData } : selectedProduct);
   const [stock, setStock] = useState([]);
   const dispatch = useDispatch();
   const [stockError, setStockError] = useState(false);
@@ -56,25 +54,25 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
     event.preventDefault();
     if (stock.length == 0) return setStockError(true);
 
-    const totalStock = stock.reduce((total, item) =>{
-      return {...total, [item[0]]:parseInt(item[1])}
-    },{})
+    const totalStock = stock.reduce((total, item) => {
+      return { ...total, [item[0]]: parseInt(item[1]) };
+    }, {});
 
-    if (mode === "new") {
+    if (mode === 'new') {
       dispatch(productActions.createProduct({ ...formData, stock: totalStock }));
       const newFormData = { ...InitialFormData };
       setFormData({ ...InitialFormData });
       setStock([]);
       setShowDialog(false);
     } else {
-      dispatch(productActions.editProduct({...formData, stock:totalStock}, selectedProduct._id));
+      dispatch(productActions.editProduct({ ...formData, stock: totalStock }, selectedProduct._id));
       setShowDialog(false);
     }
   };
 
   const handleChange = (event) => {
-    const {id, value} = event.target;
-    setFormData({...formData, [id]:value });
+    const { id, value } = event.target;
+    setFormData({ ...formData, [id]: value });
   };
 
   const addStock = () => {
@@ -82,7 +80,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
   };
 
   const deleteStock = (idx) => {
-    const newStock = stock.filter((item,index)=> index !==idx);
+    const newStock = stock.filter((item, index) => index !== idx);
     setStock(newStock);
   };
 
@@ -100,9 +98,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
 
   const onHandleCategory = (event) => {
     if (formData.category.includes(event.target.value)) {
-      const newCategory = formData.category.filter(
-        (item) => item !== event.target.value
-      );
+      const newCategory = formData.category.filter((item) => item !== event.target.value);
       setFormData({
         ...formData,
         category: [...newCategory],
@@ -114,14 +110,14 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
       });
     }
   };
-  
+
   const uploadImage = (url) => {
     setFormData({ ...formData, image: url });
   };
 
   useEffect(() => {
     if (showDialog) {
-      if (mode === "edit") {
+      if (mode === 'edit') {
         setFormData(selectedProduct);
         const stockArray = Object.keys(selectedProduct.stock).map((size) => [size, selectedProduct.stock[size]]);
         setStock(stockArray);
@@ -134,35 +130,19 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
   return (
     <Modal show={showDialog} onHide={handleClose}>
       <Modal.Header closeButton>
-        {mode === "new" ? (
-          <Modal.Title>Create New Product</Modal.Title>
-        ) : (
-          <Modal.Title>Edit Product</Modal.Title>
-        )}
+        {mode === 'new' ? <Modal.Title>Create New Product</Modal.Title> : <Modal.Title>Edit Product</Modal.Title>}
       </Modal.Header>
 
       <Form className="form-container" onSubmit={handleSubmit}>
         <Row className="mb-3">
           <Form.Group as={Col} controlId="sku">
             <Form.Label>Sku</Form.Label>
-            <Form.Control
-              onChange={handleChange}
-              type="string"
-              placeholder="Enter Sku"
-              required
-              value={formData.sku}
-            />
+            <Form.Control onChange={handleChange} type="string" placeholder="Enter Sku" required value={formData.sku} />
           </Form.Group>
 
           <Form.Group as={Col} controlId="name">
             <Form.Label>Name</Form.Label>
-            <Form.Control
-              onChange={handleChange}
-              type="string"
-              placeholder="Name"
-              required
-              value={formData.name}
-            />
+            <Form.Control onChange={handleChange} type="string" placeholder="Name" required value={formData.name} />
           </Form.Group>
         </Row>
 
@@ -181,9 +161,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
 
         <Form.Group className="mb-3" controlId="stock">
           <Form.Label className="mr-1">Stock</Form.Label>
-          {stockError && (
-            <span className="error-message">add stock</span>
-          )}
+          {stockError && <span className="error-message">add stock</span>}
           <Button variant="dark" size="sm" onClick={addStock}>
             Add +
           </Button>
@@ -192,12 +170,9 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
               <Row key={index}>
                 <Col sm={4}>
                   <Form.Select
-                    onChange={(event) =>
-                      handleSizeChange(event.target.value, index)
-                    }
+                    onChange={(event) => handleSizeChange(event.target.value, index)}
                     required
-                    defaultValue={item[0] ? item[0].toLowerCase() : ""}
-                  >
+                    defaultValue={item[0] ? item[0].toLowerCase() : ''}>
                     <option value="" disabled selected hidden>
                       Please Choose...
                     </option>
@@ -205,11 +180,8 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
                       <option
                         invalid="true"
                         value={item.toLowerCase()}
-                        disabled={stock.some(
-                          (size) => size[0] === item.toLowerCase()
-                        )}
-                        key={index}
-                      >
+                        disabled={stock.some((size) => size[0] === item.toLowerCase())}
+                        key={index}>
                         {item}
                       </option>
                     ))}
@@ -217,9 +189,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
                 </Col>
                 <Col sm={6}>
                   <Form.Control
-                    onChange={(event) =>
-                      handleStockChange(event.target.value, index)
-                    }
+                    onChange={(event) => handleStockChange(event.target.value, index)}
                     type="number"
                     placeholder="number of stock"
                     value={item[1]}
@@ -227,11 +197,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
                   />
                 </Col>
                 <Col sm={2}>
-                  <Button
-                    variant="dark"
-                    size="sm"
-                    onClick={() => deleteStock(index)}
-                  >
+                  <Button variant="dark" size="sm" onClick={() => deleteStock(index)}>
                     -
                   </Button>
                 </Col>
@@ -242,37 +208,20 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
 
         <Form.Group className="mb-3" controlId="Image" required>
           <Form.Label>Image</Form.Label>
-          <CloudinaryUploadWidget uploadImage={uploadImage}/>
+          <CloudinaryUploadWidget uploadImage={uploadImage} />
 
-          <img
-            id="uploadedimage"
-            src={formData.image}
-            className="upload-image mt-2"
-            alt="uploadedimage"
-          ></img>
+          <img id="uploadedimage" src={formData.image} className="upload-image mt-2" alt="uploadedimage"></img>
         </Form.Group>
 
         <Row className="mb-3">
           <Form.Group as={Col} controlId="price">
             <Form.Label>Price</Form.Label>
-            <Form.Control
-              value={formData.price}
-              required
-              onChange={handleChange}
-              type="number"
-              placeholder="0"
-            />
+            <Form.Control value={formData.price} required onChange={handleChange} type="number" placeholder="0" />
           </Form.Group>
 
           <Form.Group as={Col} controlId="category">
             <Form.Label>Category</Form.Label>
-            <Form.Control
-              as="select"
-              multiple
-              onChange={onHandleCategory}
-              value={formData.category}
-              required
-            >
+            <Form.Control as="select" multiple onChange={onHandleCategory} value={formData.category} required>
               {CATEGORY.map((item, idx) => (
                 <option key={idx} value={item.toLowerCase()}>
                   {item}
@@ -283,11 +232,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
 
           <Form.Group as={Col} controlId="status">
             <Form.Label>Status</Form.Label>
-            <Form.Select
-              value={formData.status}
-              onChange={handleChange}
-              required
-            >
+            <Form.Select value={formData.status} onChange={handleChange} required>
               {STATUS.map((item, idx) => (
                 <option key={idx} value={item.toLowerCase()}>
                   {item}
@@ -296,7 +241,7 @@ const NewItemDialog = ({ mode, showDialog, setShowDialog }) => {
             </Form.Select>
           </Form.Group>
         </Row>
-        {mode === "new" ? (
+        {mode === 'new' ? (
           <Button variant="dark" type="submit">
             Submit
           </Button>

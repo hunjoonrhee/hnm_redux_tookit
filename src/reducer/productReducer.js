@@ -1,11 +1,11 @@
-import * as types from "../constants/product.constants";
+import * as types from '../constants/product.constants';
 
 const initialState = {
   loading: false,
-  error: "",
+  error: '',
   productList: [],
   totalPageNum: 1,
-  searchKeyword: "",
+  searchKeyword: '',
   selectedProduct: null,
 };
 
@@ -21,9 +21,9 @@ function productReducer(state = initialState, action) {
     case types.PRODUCT_CREATE_SUCCESS:
     case types.PRODUCT_DELETE_SUCCESS:
     case types.PRODUCT_EDIT_SUCCESS:
-      return { ...state, loading: false, error: "" };
+      return { ...state, loading: false, error: '' };
     case types.PRODUCT_GET_SUCCESS:
-      return { ...state, loading: false, error: "", productList: payload.data, totalPageNum: payload.totalPageNum };
+      return { ...state, loading: false, error: '', productList: payload.data, totalPageNum: payload.totalPageNum };
     case types.PRODUCT_CREATE_FAIL:
     case types.PRODUCT_GET_FAIL:
     case types.PRODUCT_DELETE_FAIL:

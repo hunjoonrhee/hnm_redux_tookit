@@ -1,39 +1,38 @@
-import React, { useEffect, useState } from "react";
-import { Container, Form, Button, Alert } from "react-bootstrap";
-import { Link, useNavigate } from "react-router-dom";
-import { useDispatch, useSelector } from "react-redux";
-import { userActions } from "../action/userAction";
-import "../style/login.style.css";
+import React, { useEffect, useState } from 'react';
+import { Container, Form, Button, Alert } from 'react-bootstrap';
+import { Link, useNavigate } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { userActions } from '../action/userAction';
+import '../style/login.style.css';
 import { GoogleLogin } from '@react-oauth/google';
 
 const Login = () => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const { user, error, loading } = useSelector((state) => state.user);
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
+  const [email, setEmail] = useState('');
+  const [password, setPassword] = useState('');
 
   const loginWithEmail = (event) => {
     event.preventDefault();
-    dispatch(userActions.loginWithEmail({ email, password }))
+    dispatch(userActions.loginWithEmail({ email, password }));
   };
 
   const handleGoogleLogin = async (googleData) => {
-    dispatch(userActions.loginWithGoogle(googleData.credential))
+    dispatch(userActions.loginWithGoogle(googleData.credential));
   };
 
   useEffect(() => {
     if (user) {
-      navigate("/");
+      navigate('/');
     }
   }, [user, navigate]);
 
   useEffect(() => {
     return () => {
       dispatch(userActions.deleteError());
-    }
-  },
-    [])
+    };
+  }, []);
 
   return (
     <>
@@ -68,18 +67,16 @@ const Login = () => {
               Login
             </Button>
             <div>
-            Do you not have an account yet?
-            <Link to="/register">Sign Up</Link>{" "}
+              Do you not have an account yet?
+              <Link to="/register">Sign Up</Link>{' '}
             </div>
           </div>
 
           <div className="text-align-center mt-2">
             <p>-Log in with an external account.-</p>
-            <div className="display-center"><GoogleLogin
-              onSuccess={handleGoogleLogin}
-              onError={() => {
-              }}
-            /></div>
+            <div className="display-center">
+              <GoogleLogin onSuccess={handleGoogleLogin} onError={() => {}} />
+            </div>
           </div>
         </Form>
       </Container>

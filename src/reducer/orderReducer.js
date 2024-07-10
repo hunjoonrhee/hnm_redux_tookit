@@ -1,10 +1,10 @@
-import * as types from "../constants/order.constants";
+import * as types from '../constants/order.constants';
 
 const initialState = {
   orderList: [],
-  orderNum: "",
+  orderNum: '',
   selectedOrder: {},
-  error: "",
+  error: '',
   loading: false,
   totalPageNum: 1,
 };

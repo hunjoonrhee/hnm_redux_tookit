@@ -1,14 +1,14 @@
-import React, { useEffect, useState } from "react";
-import { Container, Button } from "react-bootstrap";
-import SearchBox from "../component/SearchBox";
-import { useDispatch, useSelector } from "react-redux";
-import { productActions } from "../action/productAction";
-import NewItemDialog from "../component/NewItemDialog";
-import * as types from "../constants/product.constants";
-import ReactPaginate from "react-paginate";
-import { useSearchParams, useNavigate } from "react-router-dom";
-import { commonUiActions } from "../action/commonUiAction";
-import ProductTable from "../component/ProductTable";
+import React, { useEffect, useState } from 'react';
+import { Container, Button } from 'react-bootstrap';
+import SearchBox from '../component/SearchBox';
+import { useDispatch, useSelector } from 'react-redux';
+import { productActions } from '../action/productAction';
+import NewItemDialog from '../component/NewItemDialog';
+import * as types from '../constants/product.constants';
+import ReactPaginate from 'react-paginate';
+import { useSearchParams, useNavigate } from 'react-router-dom';
+import { commonUiActions } from '../action/commonUiAction';
+import ProductTable from '../component/ProductTable';
 
 const AdminProduct = () => {
   const navigate = useNavigate();
@@ -17,34 +17,24 @@ const AdminProduct = () => {
   const dispatch = useDispatch();
   const [showDialog, setShowDialog] = useState(false);
   const [searchQuery, setSearchQuery] = useState({
-    page: query.get("page") || 1,
-    name: query.get("name") || "",
+    page: query.get('page') || 1,
+    name: query.get('name') || '',
   });
 
-  const [mode, setMode] = useState("new");
-  const tableHeader = [
-    "#",
-    "Sku",
-    "Name",
-    "Price",
-    "Stock",
-    "Image",
-    "Status",
-    "",
-  ];
+  const [mode, setMode] = useState('new');
+  const tableHeader = ['#', 'Sku', 'Name', 'Price', 'Stock', 'Image', 'Status', ''];
 
   useEffect(() => {
-    dispatch(productActions.getProductList({...searchQuery}));
+    dispatch(productActions.getProductList({ ...searchQuery }));
   }, [query]);
-  
 
   useEffect(() => {
-    if(searchQuery.name === ""){
-      delete searchQuery.name
+    if (searchQuery.name === '') {
+      delete searchQuery.name;
     }
-    const params = new URLSearchParams(searchQuery)
+    const params = new URLSearchParams(searchQuery);
     const query = params.toString();
-    navigate("?"+query)
+    navigate('?' + query);
   }, [searchQuery]);
 
   const deleteItem = (id) => {
@@ -52,18 +42,18 @@ const AdminProduct = () => {
   };
 
   const openEditForm = (product) => {
-    setMode("edit");
+    setMode('edit');
     dispatch({ type: types.SET_SELECTED_PRODUCT, payload: product });
     setShowDialog(true);
   };
 
   const handleClickNewItem = () => {
-    setMode("new");
+    setMode('new');
     setShowDialog(true);
   };
 
   const handlePageClick = ({ selected }) => {
-    setSearchQuery({...searchQuery, page: selected+1})
+    setSearchQuery({ ...searchQuery, page: selected + 1 });
   };
 
   return (
@@ -81,18 +71,13 @@ const AdminProduct = () => {
           Add New Item +
         </Button>
 
-        <ProductTable
-          header={tableHeader}
-          data={productList}
-          deleteItem={deleteItem}
-          openEditForm={openEditForm}
-        />
+        <ProductTable header={tableHeader} data={productList} deleteItem={deleteItem} openEditForm={openEditForm} />
         <ReactPaginate
           nextLabel="next >"
           onPageChange={handlePageClick}
-          pageRangeDisplayed={3} 
-          pageCount={totalPageNum} 
-          forcePage={searchQuery.page - 1} 
+          pageRangeDisplayed={3}
+          pageCount={totalPageNum}
+          forcePage={searchQuery.page - 1}
           previousLabel="< previous"
           renderOnZeroPageCount={null}
           pageClassName="page-item"
@@ -104,16 +89,12 @@ const AdminProduct = () => {
           breakLabel="..."
           breakClassName="page-item"
           breakLinkClassName="page-link"
-          containerClassName='pagination display-center list-style-none'
+          containerClassName="pagination display-center list-style-none"
           activeClassName="active"
         />
       </Container>
 
-      <NewItemDialog
-        mode={mode}
-        showDialog={showDialog}
-        setShowDialog={setShowDialog}
-      />
+      <NewItemDialog mode={mode} showDialog={showDialog} setShowDialog={setShowDialog} />
     </div>
   );
 };

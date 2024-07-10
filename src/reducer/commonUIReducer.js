@@ -1,6 +1,6 @@
-import * as types from "../constants/commonUI.constants";
+import * as types from '../constants/commonUI.constants';
 const initialState = {
-  toastMessage: { message: "", status: "" },
+  toastMessage: { message: '', status: '' },
 };
 
 function commonUiReducer(state = initialState, action) {

@@ -1,11 +1,10 @@
-import { configureStore } from "@reduxjs/toolkit";
-import { composeWithDevTools } from 'redux-devtools-extension';
+import { configureStore } from '@reduxjs/toolkit';
 
-import userReducer from "./userReducer";
-import productReducer from "./productReducer";
-import cartReducer from "./cartReducer";
-import commonUiReducer from "./commonUIReducer";
-import orderReducer from "./orderReducer";
+import userReducer from './userReducer';
+import productReducer from './productReducer';
+import cartReducer from './cartReducer';
+import commonUiReducer from './commonUIReducer';
+import orderReducer from './orderReducer';
 
 const store = configureStore({
   reducer: {
@@ -17,4 +16,3 @@ const store = configureStore({
   },
 });
 export default store;
-

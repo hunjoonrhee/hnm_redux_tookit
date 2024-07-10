@@ -1,34 +1,30 @@
 {
-    "files.autoSave": "onFocusChange",
-    "files.eol": "\n",
-    "eslint.codeActionsOnSave.rules": ["source.fixAll", "source.fixAll.eslint", ".eslintrc.json"],
-    "eslint.validate": ["javascript", "javascriptreact"],
-    "eslint.format.enable": true,
-    "eslint.lintTask.enable": true,
-    "eslint.run": "onSave",
-    "eslint.options": { "configFile": ".eslintrc.json" },
-    "debug.javascript.autoAttachFilter": "onlyWithFlag",
-    "files.autoSaveDelay": 1000,
-    "editor.codeActionsOnSave": {
-      "source.fixAll": "explicit",
-      "source.fixAll.eslint": "explicit"
-    },
-    "terminal.integrated.defaultProfile.windows": "Git Bash",
-    "gitlens.gitCommands.skipConfirmations": ["fetch:command", "stash-apply:command", "switch:command"],
-    "cSpell.language": "en,de-DE",
-    "[json]": {
-      "editor.defaultFormatter": "rvest.vs-code-prettier-eslint",
-      "editor.formatOnPaste": false, // required
-      "editor.formatOnType": false, // required
-      "editor.formatOnSave": true, // optional
-      "editor.formatOnSaveMode": "file", // required to format on save
-      "editor.codeActionsOnSave": {
-        "source.fixAll.eslint": "explicit"
-      }
-    },
-    "diffEditor.ignoreTrimWhitespace": false,
+  "files.autoSave": "onFocusChange",
+  "files.eol": "\n",
+  "eslint.validate": ["javascript", "javascriptreact", "typescript", "typescriptreact"],
+  "eslint.run": "onSave",
+  "eslint.options": {
+    "overrideConfigFile": ".eslintrc.json"
+  },
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "explicit",
+    "source.fixAll.eslint": "explicit"
+  },
+  "editor.formatOnSave": true,
+  "editor.defaultFormatter": "esbenp.prettier-vscode",
+  "files.autoSaveDelay": 1000,
+  "terminal.integrated.defaultProfile.windows": "Git Bash",
+  "gitlens.gitCommands.skipConfirmations": ["fetch:command", "stash-apply:command", "switch:command"],
+  "cSpell.language": "en,de-DE",
+  "[json]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnPaste": false,
+    "editor.formatOnType": false,
     "editor.formatOnSave": true,
-    "git.confirmSync": false,
-    "editor.defaultFormatter": "rvest.vs-code-prettier-eslint",
-    "vs-code-prettier-eslint.prettierLast": false
-  }
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": "explicit"
+    }
+  },
+  "diffEditor.ignoreTrimWhitespace": false,
+  "git.confirmSync": false
+}
