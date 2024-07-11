@@ -18,7 +18,6 @@ const ProductDetail = () => {
   const [sizeError, setSizeError] = useState(false);
 
   const navigate = useNavigate();
-  console.log('yyy', selectedProduct);
   // const pickIsTrue = () => {
   //   return selectedProduct.choice ? true : false;
   // };
@@ -88,25 +87,7 @@ const ProductDetail = () => {
                     ),
                   )}
               </Dropdown.Menu>
-              <Dropdown.Menu className="size-drop-down">
-                {selectedProduct?.stock?.map((item) => {
-                  selectedProduct?.stock[item] > 0 ? (
-                    <Dropdown.Item key={item} eventKey={item}>
-                      {item.toUpperCase()}
-                      {selectedProduct?.stock[item] <= 5 && <span className="low-stock"> - {selectedProduct?.stock[item]} item(s) (Almost Out of Stock)</span>}
-                    </Dropdown.Item>
-                  ) : (
-                    <Dropdown.Item key={item} eventKey={item} disabled>
-                      {item.toUpperCase()} - Out of Stock
-                    </Dropdown.Item>
-                  );
-                })}
-              </Dropdown.Menu>
             </Dropdown>
-            {/* <div className="warning-message">{sizeError && 'Please select a size.'}</div>
-            <button className="add-button" onClick={addItemToCart}>
-              Add
-            </button> */}
           </Col>
         </Row>
       </Container>
