@@ -5,30 +5,27 @@ import { faBars, faBox, faSearch, faShoppingBag } from '@fortawesome/free-solid-
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
-import { logOut } from './context/user/userSlice';
+import { logOutUser } from '../context/user/userSlice';
 
 const Navbar = ({ user }) => {
   const dispatch = useDispatch();
   const router = useRouter();
-  const { query } = router.query;
   const isMobile = window.navigator.userAgent.indexOf('Mobile') !== -1;
   const [showSearchBox, setShowSearchBox] = useState(false);
   const menuList = ['Women', 'Divided', 'Men', 'Baby', 'Kids', 'HOME', 'Sale'];
   let [width, setWidth] = useState(0);
+
   const onCheckEnter = (event) => {
     if (event.key === 'Enter') {
       if (event.target.value === '') {
         return router.push('/');
       }
-
-      router.push(`?&name=${event.target.value}`); //쿼리파라미터
-      // navigate(`/${category}`) //동적라우터
+      router.push(`?name=${event.target.value}`);
     }
   };
 
   const logout = () => {
-    console.log('ddd');
-    dispatch(logOut());
+    dispatch(logOutUser());
   };
 
   return (
@@ -57,11 +54,6 @@ const Navbar = ({ user }) => {
             ))}
           </div>
         </div>
-        {user && user.level === 'admin' && (
-          <Link to="/admin/product?page=1" className="link-area">
-            Admin page
-          </Link>
-        )}
         <div className="nav-header d-flex justify-content-between align-items-center">
           <div className="d-flex align-items-center">
             <div className="burger-menu hide">
@@ -78,16 +70,16 @@ const Navbar = ({ user }) => {
                 </div>
               </>
             ) : (
-              <div onClick={() => navigate('/login')} className="nav-icon">
+              <div onClick={() => router.push('/auth/login')} className="nav-icon">
                 <FontAwesomeIcon icon={faUser} />
                 {!isMobile && <span style={{ cursor: 'pointer' }}>Login</span>}
               </div>
             )}
-            <div onClick={() => navigate('/cart')} className="nav-icon">
+            <div onClick={() => router.push('/cart')} className="nav-icon">
               <FontAwesomeIcon icon={faShoppingBag} />
               {!isMobile && <span style={{ cursor: 'pointer' }}>{`My Cart(0)`}</span>}
             </div>
-            <div onClick={() => navigate('/account/purchase')} className="nav-icon">
+            <div onClick={() => router.push('/account/purchase')} className="nav-icon">
               <FontAwesomeIcon icon={faBox} />
               {!isMobile && <span style={{ cursor: 'pointer' }}>My Order</span>}
             </div>
@@ -100,7 +92,7 @@ const Navbar = ({ user }) => {
         </div>
 
         <div className="nav-logo">
-          <Link to="/">
+          <Link href="/">
             <img width={350} src="/image/mayday_logo.png" alt="mayday_logo.png" />
           </Link>
         </div>

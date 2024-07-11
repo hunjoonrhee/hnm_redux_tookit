@@ -7,28 +7,13 @@ const Sidebar = () => {
   const [show, setShow] = useState(false);
   const router = useRouter();
 
-  const handleSelectMenu = (url) => {
-    setShow(false);
-    router.push(url);
-  };
-
   const NavbarContent = () => {
     return (
       <div>
         <Link href="/">
-          <a>
-            <img width={250} src="/image/mayday_logo.png" alt="mayday_logo.png" />
-          </a>
+          <img width={250} src="/image/mayday_logo.png" alt="mayday_logo.png" />
         </Link>
         <div className="sidebar-item">Admin Account</div>
-        <ul className="sidebar-area">
-          <li className="sidebar-item" onClick={() => handleSelectMenu('/admin/product?page=1')}>
-            product
-          </li>
-          <li className="sidebar-item" onClick={() => handleSelectMenu('/admin/order?page=1')}>
-            order
-          </li>
-        </ul>
       </div>
     );
   };
@@ -39,9 +24,7 @@ const Sidebar = () => {
       <Navbar bg="light" expand={false} className="mobile-sidebar-toggle">
         <Container fluid>
           <Link href="/">
-            <a>
-              <img width={250} src="/image/mayday_logo.png" alt="mayday_logo.png" />
-            </a>
+            <img width={250} src="/image/mayday_logo.png" alt="mayday_logo.png" />
           </Link>
           <Navbar.Brand href="#"></Navbar.Brand>
           <Navbar.Toggle aria-controls={`offcanvasNavbar-expand`} onClick={() => setShow(true)} />

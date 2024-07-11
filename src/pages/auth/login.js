@@ -1,8 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Container, Form, Button, Alert } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import '../style/login.style.css';
-import { logInUser } from '../component/context/user/userSlice';
+import { logInUser } from '../../context/user/userSlice';
 import Link from 'next/link';
 import { useRouter } from 'next/router';
 
@@ -27,7 +26,7 @@ const Login = () => {
     if (user) {
       router.push('/');
     }
-  }, [user, navigate]);
+  }, [user]);
 
   return (
     <>
@@ -53,9 +52,7 @@ const Login = () => {
             </Button>
             <div>
               Do you not have an account yet?
-              <Link href="/register">
-                <a>Sign Up</a>
-              </Link>
+              <Link href="/register">Sign Up</Link>
             </div>
           </div>
 

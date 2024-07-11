@@ -3,7 +3,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Head from 'next/head';
 import { wrapper } from '../store';
-
+import '../style/login.style.css';
 function MayDay({ Component, pageProps }) {
   return (
     <>

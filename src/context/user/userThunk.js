@@ -1,9 +1,8 @@
-import api from '../../../utils/api';
 import { signIn, signOut } from 'next-auth/react';
 
 export const createANewUserThunk = async (formData, { rejectWithValue }) => {
   try {
-    await api.post('/user', formData);
+    await axios.post('http://localhost:5002/api/user', formData);
   } catch (error) {
     return rejectWithValue(error);
   }
