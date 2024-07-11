@@ -37,6 +37,7 @@ const userSlice = createSlice({
       .addCase(createANewUser.fulfilled, (state) => {
         state.registerLoading = false;
         state.registerDone = true;
+        toast.success('Register succeed!');
       })
       .addCase(createANewUser.rejected, (state, action) => {
         state.registerLoading = false;
