@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react';
 import { Container } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 import ClipLoader from 'react-spinners/ClipLoader';
+import AppLayout from '../component/AppLayout';
 
 const Home = () => {
   const dispatch = useDispatch();
@@ -17,9 +18,9 @@ const Home = () => {
   }
 
   return (
-    <Container>
+    <AppLayout>
       <h1>Welcome to May Day!</h1>
-    </Container>
+    </AppLayout>
   );
 };
 

@@ -2,24 +2,26 @@ import React, { useEffect, useState } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser } from '@fortawesome/free-regular-svg-icons';
 import { faBars, faBox, faSearch, faShoppingBag } from '@fortawesome/free-solid-svg-icons';
-import { Link, useNavigate, useSearchParams } from 'react-router-dom';
+import Link from 'next/link';
+import { useRouter } from 'next/router';
 import { useDispatch, useSelector } from 'react-redux';
 import { logOut } from './context/user/userSlice';
 
 const Navbar = ({ user }) => {
   const dispatch = useDispatch();
-  const [query] = useSearchParams();
+  const router = useRouter();
+  const { query } = router.query;
   const isMobile = window.navigator.userAgent.indexOf('Mobile') !== -1;
   const [showSearchBox, setShowSearchBox] = useState(false);
   const menuList = ['Women', 'Divided', 'Men', 'Baby', 'Kids', 'HOME', 'Sale'];
   let [width, setWidth] = useState(0);
-  const navigate = useNavigate();
   const onCheckEnter = (event) => {
     if (event.key === 'Enter') {
       if (event.target.value === '') {
-        return navigate('/');
+        return router.push('/');
       }
-      navigate(`?&name=${event.target.value}`); //쿼리파라미터
+
+      router.push(`?&name=${event.target.value}`); //쿼리파라미터
       // navigate(`/${category}`) //동적라우터
     }
   };
