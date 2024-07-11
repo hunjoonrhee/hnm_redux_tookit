@@ -1,10 +1,7 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import { userReducer, productReducer } from '../component/context';
+import { createWrapper } from 'next-redux-wrapper';
 
-const rootReducer = combineReducers({
-  user: userReducer,
-  product: productReducer,
-});
+const rootReducer = combineReducers({});
 
 export const setupStore = (preloadedState) => {
   return configureStore({
@@ -12,3 +9,5 @@ export const setupStore = (preloadedState) => {
     preloadedState,
   });
 };
+
+export const wrapper = createWrapper(setupStore);
