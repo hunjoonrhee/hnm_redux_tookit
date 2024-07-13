@@ -9,9 +9,6 @@ export const createANewUserThunk = async (formData, { rejectWithValue }) => {
 };
 
 export const logInUserThunk = async ({ email, password }, { rejectWithValue }) => {
-  const loginData = { email, password };
-  console.log('login loginData', loginData);
-
   try {
     const res = await signIn('credentials', {
       redirect: false,
